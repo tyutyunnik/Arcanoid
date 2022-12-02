@@ -1,0 +1,15 @@
+<resources>
+    <string name="app_name">CosmoArcanoid</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <!--    CosmoMenuFragment-->
+    <string name="cosmo_arcanoid">Cosmo \nArcanoid</string>
+    <string name="start">Start</string>
+    <string name="contin">Continue</string>
+    <string name="quit">Quit</string>
+
+    <!--    ArcGameFragment-->
+
+
+</resources>

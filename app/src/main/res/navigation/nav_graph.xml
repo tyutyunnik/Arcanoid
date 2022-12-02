@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/game_nav_graph"
+    app:startDestination="@id/cosmoMenuFragment">
+
+    <fragment
+        android:id="@+id/cosmoMenuFragment"
+        android:name="com.my.example.cosmoarcanoid.fragments.CosmoMenuFragment"
+        android:label="fragment_cosmo_menu"
+        tools:layout="@layout/fragment_cosmo_menu" >
+        <action
+            android:id="@+id/action_cosmoMenuFragment_to_arcGameFragment"
+            app:destination="@id/arcGameFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/arcGameFragment"
+        android:name="com.my.example.cosmoarcanoid.fragments.ArcGameFragment"
+        android:label="fragment_arc_game"
+        tools:layout="@layout/fragment_arc_game" />
+</navigation>
