@@ -10,6 +10,8 @@ import android.view.MotionEvent
 import android.view.SurfaceHolder
 import android.view.SurfaceView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.os.bundleOf
+import androidx.navigation.findNavController
 import com.mstete.wnn.csmt.R
 import com.mstete.wnn.csmt.models.ArcPanel.Companion.LEFT
 import com.mstete.wnn.csmt.models.ArcPanel.Companion.RIGHT
@@ -154,10 +156,10 @@ class ArcGameView(context: Context, attrs: AttributeSet) : SurfaceView(context, 
         super.draw(canvas)
         val paint1 = Paint()
         val paint2 = Paint()
-        paint1.color = resources.getColor(R.color.purple, resources.newTheme())
-        paint2.color = resources.getColor(R.color.purple_200, resources.newTheme())
+        paint1.color = resources.getColor(R.color.brick, resources.newTheme())
+        paint2.color = resources.getColor(R.color.panel, resources.newTheme())
         try {
-            canvas!!.drawColor(resources.getColor(R.color.purple_500, resources.newTheme()))
+            canvas!!.drawColor(resources.getColor(R.color.wall, resources.newTheme()))
             canvas.drawRect(panel.getRectangle(), paint2)
             canvas.drawRect(ball.getRectangle(), paint2)
             for (i in 0 until numBricks) {
@@ -166,16 +168,29 @@ class ArcGameView(context: Context, attrs: AttributeSet) : SurfaceView(context, 
                 }
             }
             paint2.textSize = 40f
-            canvas.drawText("Score: $totalScore   Lives: $lives   Hi-Score: $highScore", 10f, 50f, paint2)
-
+            canvas.drawText(
+                "Score: $totalScore   Lives: $lives   Hi-Score: $highScore",
+                10f,
+                50f,
+                paint2
+            )
+            var message: String
             if (won) {
                 paint2.textSize = 90f
-                canvas.drawText("YOU WIN!", 10f, screenY / 2f, paint2)
+                message = "You Win!"
+                findNavController().navigate(
+                    R.id.action_arcGameFragment_to_cosmoResultFragment,
+                    bundleOf("result" to message)
+                )
             }
 
             if (lost) {
                 paint2.textSize = 90f
-                canvas.drawText("YOU LOSE!", 10f, screenY / 2f, paint2)
+                message = "You Lose!"
+                findNavController().navigate(
+                    R.id.action_arcGameFragment_to_cosmoResultFragment,
+                    bundleOf("result" to message)
+                )
             }
         } catch (_: Exception) {
         }
@@ -227,13 +242,13 @@ class ArcGameView(context: Context, attrs: AttributeSet) : SurfaceView(context, 
         thread.start()
     }
 
-    private fun createBricksAndRestart(isRestore : Boolean) {
+    private fun createBricksAndRestart(isRestore: Boolean) {
         ball.reset(screenX, screenY)
         val brickWidth = screenX / 10
         val brickHeight = screenY / 10
         bricks = ArrayList(200)
         numBricks = 0
-        if(!isRestore){
+        if (!isRestore) {
             levelScore = 0
         }
 
@@ -241,9 +256,9 @@ class ArcGameView(context: Context, attrs: AttributeSet) : SurfaceView(context, 
             for (row in 0..4) {
                 bricks.add(numBricks, ArcBrick(row, column, brickWidth, brickHeight))
                 numBricks++
-                if(isRestore && invisibles.length >= numBricks){
-                    if (invisibles[numBricks-1] == '1'){
-                        bricks[numBricks-1].setInvisible()
+                if (isRestore && invisibles.length >= numBricks) {
+                    if (invisibles[numBricks - 1] == '1') {
+                        bricks[numBricks - 1].setInvisible()
                     }
                 }
             }

@@ -8,4 +8,8 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="purple">#CF064B</color>
+
+    <color name="brick">#6A0528</color>
+    <color name="wall">#320277</color>
+    <color name="panel">#9A4BFB</color>
 </resources>

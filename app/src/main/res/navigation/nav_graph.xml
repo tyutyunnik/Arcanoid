@@ -18,7 +18,11 @@
         android:id="@+id/arcGameFragment"
         android:name="com.mstete.wnn.csmt.fragments.ArcGameFragment"
         android:label="fragment_arc_game"
-        tools:layout="@layout/fragment_arc_game" />
+        tools:layout="@layout/fragment_arc_game" >
+        <action
+            android:id="@+id/action_arcGameFragment_to_cosmoResultFragment"
+            app:destination="@id/cosmoResultFragment" />
+    </fragment>
     <fragment
         android:id="@+id/launchFragment"
         android:name="com.mstete.wnn.csmt.fragments.LaunchFragment"
@@ -38,4 +42,9 @@
         android:name="com.mstete.wnn.csmt.fragments.FlyFragment"
         android:label="fragment_fly"
         tools:layout="@layout/fragment_fly" />
+    <fragment
+        android:id="@+id/cosmoResultFragment"
+        android:name="com.mstete.wnn.csmt.fragments.CosmoResultFragment"
+        android:label="fragment_cosmo_result"
+        tools:layout="@layout/fragment_cosmo_result" />
 </navigation>

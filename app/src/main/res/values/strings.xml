@@ -9,6 +9,10 @@
     <string name="contin">Continue</string>
     <string name="quit">Quit</string>
     <string name="cosmo_mania">Космолот Мания</string>
+    <string name="game_over">Game Over!</string>
+    <string name="result_text">You Lose!</string>
+    <string name="again">Again?</string>
+    <string name="menu">Menu</string>
 
     <!--    ArcGameFragment-->
 
