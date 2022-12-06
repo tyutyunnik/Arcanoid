@@ -46,7 +46,7 @@ class LaunchFragment : Fragment(R.layout.fragment_launch) {
 
         if (firstStart) {
             if (isSystemOnline(requireContext())) {
-                if (/*isRobot(requireContext())*/false) {
+                if (isRobot(requireContext())) {
                     sharedPreferences.edit().putBoolean("firstFly", false).apply()
                     startArcGame()
                 } else {
@@ -97,7 +97,7 @@ class LaunchFragment : Fragment(R.layout.fragment_launch) {
             while (fConfig == null || adv == null) {
                 Thread.sleep(1000)
             }
-            if (/*fConfig == "wert" || */adv == "null" || fConfig == "null") {
+            if (fConfig == "wert" || adv == "null" || fConfig == "null") {
                 sharedPreferences.edit().putBoolean("firstFly", false).apply()
                 startArcGame()
             } else {
