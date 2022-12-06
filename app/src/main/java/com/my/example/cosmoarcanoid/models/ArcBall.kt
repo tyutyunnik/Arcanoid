@@ -3,7 +3,7 @@ package com.my.example.cosmoarcanoid.models
 import android.graphics.RectF
 import kotlin.random.Random
 
-class ArcBall(private val screenX: Int, private val screenY: Int) {
+class ArcBall {
     private val rectangle: RectF = RectF()
     private var xVelocity: Float = 200f
     private var yVelocity: Float = -400f
@@ -30,7 +30,7 @@ class ArcBall(private val screenX: Int, private val screenY: Int) {
     }
 
     fun setRandomXVelocity(){
-        val randomGen : Random = Random(System.nanoTime())
+        val randomGen = Random(System.nanoTime())
         val answer : Int = randomGen.nextInt(2)
         if (answer == 0){
             reverseXVelocity()

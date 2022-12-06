@@ -5,29 +5,35 @@ import android.content.res.Configuration
 import android.graphics.PixelFormat
 import android.os.Bundle
 import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
+import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
+import androidx.navigation.fragment.findNavController
 import com.my.example.cosmoarcanoid.R
 import com.my.example.cosmoarcanoid.databinding.FragmentArcGameBinding
 
-class ArcGameFragment : Fragment() {
+class ArcGameFragment : Fragment(R.layout.fragment_arc_game) {
 
     private lateinit var binding: FragmentArcGameBinding
     private lateinit var sharedPreferences: SharedPreferences
 
     private var cont = true
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        binding = FragmentArcGameBinding.inflate(inflater, container, false)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        binding = FragmentArcGameBinding.bind(view)
+
         sharedPreferences =
             requireActivity().getSharedPreferences("arcSharedP", AppCompatActivity.MODE_PRIVATE)
         cont = sharedPreferences.getBoolean("continue", false)
-        return binding.root
+
+        requireActivity().onBackPressedDispatcher.addCallback(
+            requireActivity(), object : OnBackPressedCallback(true) {
+                override fun handleOnBackPressed() {
+                    findNavController().popBackStack()
+                }
+            }
+        )
     }
 
     override fun onPause() {

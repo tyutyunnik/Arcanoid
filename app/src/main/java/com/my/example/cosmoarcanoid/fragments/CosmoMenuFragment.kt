@@ -1,32 +1,29 @@
 package com.my.example.cosmoarcanoid.fragments
 
+import android.annotation.SuppressLint
 import android.content.SharedPreferences
 import android.content.pm.ActivityInfo
 import android.os.Bundle
 import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.os.bundleOf
 import androidx.navigation.fragment.findNavController
 import com.my.example.cosmoarcanoid.R
 import com.my.example.cosmoarcanoid.databinding.FragmentCosmoMenuBinding
 
-class CosmoMenuFragment : Fragment() {
+class CosmoMenuFragment : Fragment(R.layout.fragment_cosmo_menu) {
 
     private lateinit var binding: FragmentCosmoMenuBinding
     private lateinit var sharedPreferences: SharedPreferences
 
     private var cont = true
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        binding = FragmentCosmoMenuBinding.inflate(inflater, container, false)
+    @SuppressLint("SourceLockedOrientationActivity")
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        binding = FragmentCosmoMenuBinding.bind(view)
         activity?.requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
 
         sharedPreferences =
@@ -48,15 +45,13 @@ class CosmoMenuFragment : Fragment() {
             quitDialog()
         }
 
-//        requireActivity().onBackPressedDispatcher.addCallback(
-//            requireActivity(), object : OnBackPressedCallback(true) {
-//                override fun handleOnBackPressed() {
-//                    quitDialog()
-//                }
-//            }
-//        )
-
-        return binding.root
+        requireActivity().onBackPressedDispatcher.addCallback(
+            requireActivity(), object : OnBackPressedCallback(true) {
+                override fun handleOnBackPressed() {
+                    quitDialog()
+                }
+            }
+        )
     }
 
     private fun quitDialog() {

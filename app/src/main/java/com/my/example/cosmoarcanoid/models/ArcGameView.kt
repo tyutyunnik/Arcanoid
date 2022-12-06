@@ -1,16 +1,14 @@
 package com.my.example.cosmoarcanoid.models
 
+import android.annotation.SuppressLint
 import android.content.Context
-import android.content.SharedPreferences
 import android.graphics.Canvas
 import android.graphics.Paint
 import android.graphics.RectF
-import android.os.Build
 import android.util.AttributeSet
 import android.view.MotionEvent
 import android.view.SurfaceHolder
 import android.view.SurfaceView
-import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import com.my.example.cosmoarcanoid.R
 import com.my.example.cosmoarcanoid.models.ArcPanel.Companion.LEFT
@@ -24,16 +22,9 @@ class ArcGameView(context: Context, attrs: AttributeSet) : SurfaceView(context, 
         context.getSharedPreferences("arcSharedP", AppCompatActivity.MODE_PRIVATE)
 
     private lateinit var thread: ArcGameThread
-    private var canvas: Canvas? = null
-
-    @Volatile
     private var touched: Boolean = false
-
-    @Volatile
-    private var touched_x: Int = 0
-
-    @Volatile
-    private var touched_y: Int = 0
+    private var touchedX: Int = 0
+    private var touchedY: Int = 0
     private var screenX: Int = 0
     private var screenY: Int = 0
     private lateinit var panel: ArcPanel
@@ -54,20 +45,20 @@ class ArcGameView(context: Context, attrs: AttributeSet) : SurfaceView(context, 
 
 
     override fun surfaceCreated(p0: SurfaceHolder) {
-        highScore = sharedPreferences.getInt("hs", 0)
+        highScore = sharedPreferences.getInt("highScore", 0)
         @Suppress("NULLABILITY_MISMATCH_BASED_ON_JAVA_ANNOTATIONS")
         val cont = sharedPreferences.getBoolean("continue", false)
         if (cont) {
             lives = sharedPreferences.getInt("lives", 0)
-            totalScore = sharedPreferences.getInt("ts", 0)
-            levelScore = sharedPreferences.getInt("ls", 0)
+            totalScore = sharedPreferences.getInt("totalScore", 0)
+            levelScore = sharedPreferences.getInt("levelScore", 0)
             invisibles = sharedPreferences.getString("invisible", "").toString()
         }
         this.isFocusable = true
         screenX = width
         screenY = height
         panel = ArcPanel(screenX, screenY)
-        ball = ArcBall(screenX, screenY)
+        ball = ArcBall()
         thread = ArcGameThread(holder, this)
         thread.setRunning(true)
         thread.start()
@@ -87,25 +78,25 @@ class ArcGameView(context: Context, attrs: AttributeSet) : SurfaceView(context, 
     }
 
     fun saveState() {
-        sharedPreferences.edit().putInt("hs", highScore).apply()
-        sharedPreferences.edit().putInt("ts", totalScore).apply()
-        sharedPreferences.edit().putInt("ls", levelScore).apply()
+        sharedPreferences.edit().putInt("highScore", highScore).apply()
+        sharedPreferences.edit().putInt("totalScore", totalScore).apply()
+        sharedPreferences.edit().putInt("levelScore", levelScore).apply()
         sharedPreferences.edit().putInt("lives", lives).apply()
-        var tmp = ""
+        var temp = ""
         for (i: Int in 0 until numBricks) {
-            tmp += if (bricks[i].getVisibility()) {
+            temp += if (bricks[i].getVisibility()) {
                 '0'
             } else {
                 '1'
             }
         }
-        sharedPreferences.edit().putString("invisible", tmp).apply()
+        sharedPreferences.edit().putString("invisible", temp).apply()
     }
 
     fun update(fps: Long) {
         panel.update(fps)
         ball.update(fps)
-        //update score and visibility if any visible block was hit
+
         for (i in 0 until numBricks) {
             if (bricks[i].getVisibility()) {
                 if (RectF.intersects(bricks[i].getRectangle(), ball.getRectangle())) {
@@ -120,14 +111,12 @@ class ArcGameView(context: Context, attrs: AttributeSet) : SurfaceView(context, 
             }
         }
 
-        //bounce the ball off the paddle
         if (RectF.intersects(panel.getRectangle(), ball.getRectangle())) {
             ball.setRandomXVelocity()
             ball.reverseYVelocity()
             ball.clearObstacleY(panel.getRectangle().top - 2f)
         }
 
-        //ball missed the paddle and fell
         if (ball.getRectangle().bottom > screenY) {
             ball.reverseYVelocity()
             ball.clearObstacleY(screenY - 2f)
@@ -139,25 +128,21 @@ class ArcGameView(context: Context, attrs: AttributeSet) : SurfaceView(context, 
             }
         }
 
-        //bounce off top
         if (ball.getRectangle().top < 0) {
             ball.reverseYVelocity()
             ball.clearObstacleY(22f)
         }
 
-        //bounce off left
         if (ball.getRectangle().left < 0) {
             ball.reverseXVelocity()
             ball.clearObstacleX(2f)
         }
 
-        //bounce off right
         if (ball.getRectangle().right > screenX - 10) {
             ball.reverseXVelocity()
             ball.clearObstacleX(screenX - 32f)
         }
 
-        // Pause if cleared screen
         if (levelScore == numBricks * 10) {
             won = true
             thread.setPaused(true)
@@ -165,7 +150,6 @@ class ArcGameView(context: Context, attrs: AttributeSet) : SurfaceView(context, 
         }
     }
 
-    //draw current state of game (all visible blocks plus paddle, ball and scores)
     override fun draw(canvas: Canvas?) {
         super.draw(canvas)
         val paint1 = Paint()
@@ -182,25 +166,25 @@ class ArcGameView(context: Context, attrs: AttributeSet) : SurfaceView(context, 
                 }
             }
             paint2.textSize = 40f
-            canvas.drawText("Score: $totalScore   Lives: $lives   Highscore: $highScore", 10f, 50f, paint2)
+            canvas.drawText("Score: $totalScore   Lives: $lives   Hi-Score: $highScore", 10f, 50f, paint2)
 
             if (won) {
                 paint2.textSize = 90f
-                canvas.drawText("YOU HAVE WON!", 10f, screenY / 2f, paint2)
+                canvas.drawText("YOU WIN!", 10f, screenY / 2f, paint2)
             }
 
             if (lost) {
                 paint2.textSize = 90f
-                canvas.drawText("YOU HAVE LOST!", 10f, screenY / 2f, paint2)
+                canvas.drawText("YOU LOSE!", 10f, screenY / 2f, paint2)
             }
-        } catch (e: Exception) {
-//            e.printStackTrace()
+        } catch (_: Exception) {
         }
     }
 
+    @SuppressLint("ClickableViewAccessibility")
     override fun onTouchEvent(event: MotionEvent?): Boolean {
-        touched_x = event!!.x.toInt()
-        touched_y = event.y.toInt()
+        touchedX = event!!.x.toInt()
+        touchedY = event.y.toInt()
         when (event.action) {
             MotionEvent.ACTION_DOWN -> {
                 touched = true
@@ -243,7 +227,7 @@ class ArcGameView(context: Context, attrs: AttributeSet) : SurfaceView(context, 
         thread.start()
     }
 
-    fun createBricksAndRestart(isRestore : Boolean) {
+    private fun createBricksAndRestart(isRestore : Boolean) {
         ball.reset(screenX, screenY)
         val brickWidth = screenX / 10
         val brickHeight = screenY / 10

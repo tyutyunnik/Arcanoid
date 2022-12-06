@@ -37,14 +37,12 @@ class ArcGameThread(private val surfaceHolder: SurfaceHolder, private val gameVi
                     }
                     gameView.draw(canvas!!)
                 }
-            } catch (e : Exception){
-                e.printStackTrace()
+            } catch (_: Exception){
             } finally {
                 if (canvas != null){
                     try {
                         surfaceHolder.unlockCanvasAndPost(canvas)
-                    } catch (e : Exception){
-                        e.printStackTrace()
+                    } catch (_: Exception){
                     }
                 }
             }
@@ -52,8 +50,7 @@ class ArcGameThread(private val surfaceHolder: SurfaceHolder, private val gameVi
             waitTime = targetTime - timeMillis
             try {
                 sleep(waitTime)
-            } catch (e : Exception){
-                e.printStackTrace()
+            } catch (_: Exception){
             }
         }
     }

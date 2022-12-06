@@ -3,13 +3,13 @@ package com.my.example.cosmoarcanoid.models
 import android.graphics.RectF
 
 class ArcBrick(
-    private val row: Int,
-    private val column: Int,
-    private val width: Int,
-    private val height: Int
+    row: Int,
+    column: Int,
+    width: Int,
+    height: Int
 ) {
 
-    private lateinit var rectangle: RectF
+    private var rectangle: RectF
     private var isVisible: Boolean = false
 
     init {
