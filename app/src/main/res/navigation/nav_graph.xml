@@ -3,11 +3,11 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/game_nav_graph"
-    app:startDestination="@id/cosmoMenuFragment">
+    app:startDestination="@id/launchFragment">
 
     <fragment
         android:id="@+id/cosmoMenuFragment"
-        android:name="com.my.example.cosmoarcanoid.fragments.CosmoMenuFragment"
+        android:name="com.mstete.wnn.csmt.fragments.CosmoMenuFragment"
         android:label="fragment_cosmo_menu"
         tools:layout="@layout/fragment_cosmo_menu" >
         <action
@@ -16,7 +16,26 @@
     </fragment>
     <fragment
         android:id="@+id/arcGameFragment"
-        android:name="com.my.example.cosmoarcanoid.fragments.ArcGameFragment"
+        android:name="com.mstete.wnn.csmt.fragments.ArcGameFragment"
         android:label="fragment_arc_game"
         tools:layout="@layout/fragment_arc_game" />
+    <fragment
+        android:id="@+id/launchFragment"
+        android:name="com.mstete.wnn.csmt.fragments.LaunchFragment"
+        android:label="fragment_launch"
+        tools:layout="@layout/fragment_launch" >
+        <action
+            android:id="@+id/action_launchFragment_to_cosmoMenuFragment"
+            app:destination="@id/cosmoMenuFragment"
+            app:popUpTo="@id/launchFragment" />
+        <action
+            android:id="@+id/action_launchFragment_to_flyFragment"
+            app:destination="@id/flyFragment"
+            app:popUpTo="@id/launchFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/flyFragment"
+        android:name="com.mstete.wnn.csmt.fragments.FlyFragment"
+        android:label="fragment_fly"
+        tools:layout="@layout/fragment_fly" />
 </navigation>

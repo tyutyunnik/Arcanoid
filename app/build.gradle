@@ -1,14 +1,16 @@
 plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
+    id 'com.onesignal.androidsdk.onesignal-gradle-plugin'
+    id 'com.google.gms.google-services'
 }
 
 android {
-    namespace 'com.my.example.cosmoarcanoid'
+    namespace 'com.mstete.wnn.csmt'
     compileSdk 32
 
     defaultConfig {
-        applicationId "com.my.example.cosmoarcanoid"
+        applicationId "com.mstete.wnn.csmt"
         minSdk 24
         targetSdk 32
         versionCode 1
@@ -19,7 +21,7 @@ android {
 
     buildTypes {
         release {
-            minifyEnabled false
+            minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
@@ -45,9 +47,21 @@ dependencies {
     androidTestImplementation 'androidx.test.ext:junit:1.1.4'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.0'
 
-    implementation 'androidx.navigation:navigation-fragment:2.3.5'
-    implementation 'androidx.navigation:navigation-ui-ktx:2.3.5'
-    implementation 'androidx.navigation:navigation-dynamic-features-fragment:2.3.5'
+    implementation 'androidx.navigation:navigation-fragment:2.5.3'
+    implementation 'androidx.navigation:navigation-ui-ktx:2.5.3'
+    implementation 'androidx.navigation:navigation-dynamic-features-fragment:2.5.3'
 
-    implementation 'androidx.fragment:fragment-ktx:1.5.3'
+    implementation 'androidx.fragment:fragment-ktx:1.5.4'
+
+    implementation 'com.google.android.gms:play-services-ads-identifier:18.0.1'
+
+    implementation 'com.onesignal:OneSignal:4.8.2'
+
+    implementation 'com.google.firebase:firebase-core:21.1.1'
+    implementation platform('com.google.firebase:firebase-bom:27.1.0')
+    implementation 'com.google.firebase:firebase-config-ktx'
+    implementation 'com.google.firebase:firebase-analytics-ktx'
+
+    implementation 'com.appsflyer:af-android-sdk:6.9.1'
+    implementation 'com.android.installreferrer:installreferrer:2.2'
 }

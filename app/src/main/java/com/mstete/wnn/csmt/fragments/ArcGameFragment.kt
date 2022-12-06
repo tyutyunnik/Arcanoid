@@ -1,4 +1,4 @@
-package com.my.example.cosmoarcanoid.fragments
+package com.mstete.wnn.csmt.fragments
 
 import android.content.SharedPreferences
 import android.content.res.Configuration
@@ -9,8 +9,8 @@ import android.view.View
 import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.fragment.findNavController
-import com.my.example.cosmoarcanoid.R
-import com.my.example.cosmoarcanoid.databinding.FragmentArcGameBinding
+import com.mstete.wnn.csmt.R
+import com.mstete.wnn.csmt.databinding.FragmentArcGameBinding
 
 class ArcGameFragment : Fragment(R.layout.fragment_arc_game) {
 

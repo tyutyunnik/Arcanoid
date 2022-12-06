@@ -1,4 +1,4 @@
-package com.my.example.cosmoarcanoid.models
+package com.mstete.wnn.csmt.models
 
 import android.annotation.SuppressLint
 import android.content.Context
@@ -10,10 +10,10 @@ import android.view.MotionEvent
 import android.view.SurfaceHolder
 import android.view.SurfaceView
 import androidx.appcompat.app.AppCompatActivity
-import com.my.example.cosmoarcanoid.R
-import com.my.example.cosmoarcanoid.models.ArcPanel.Companion.LEFT
-import com.my.example.cosmoarcanoid.models.ArcPanel.Companion.RIGHT
-import com.my.example.cosmoarcanoid.models.ArcPanel.Companion.STOPPED
+import com.mstete.wnn.csmt.R
+import com.mstete.wnn.csmt.models.ArcPanel.Companion.LEFT
+import com.mstete.wnn.csmt.models.ArcPanel.Companion.RIGHT
+import com.mstete.wnn.csmt.models.ArcPanel.Companion.STOPPED
 
 class ArcGameView(context: Context, attrs: AttributeSet) : SurfaceView(context, attrs),
     SurfaceHolder.Callback {

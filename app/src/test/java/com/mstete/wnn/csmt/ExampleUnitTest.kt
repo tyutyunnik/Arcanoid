@@ -1,4 +1,4 @@
-package com.my.example.cosmoarcanoid
+package com.mstete.wnn.csmt
 
 import org.junit.Test
 

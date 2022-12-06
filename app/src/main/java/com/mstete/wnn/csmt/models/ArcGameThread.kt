@@ -1,4 +1,4 @@
-package com.my.example.cosmoarcanoid.models
+package com.mstete.wnn.csmt.models
 
 import android.graphics.Canvas
 import android.view.SurfaceHolder

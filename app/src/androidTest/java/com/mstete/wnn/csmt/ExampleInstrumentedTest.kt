@@ -1,4 +1,4 @@
-package com.my.example.cosmoarcanoid
+package com.mstete.wnn.csmt
 
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.ext.junit.runners.AndroidJUnit4

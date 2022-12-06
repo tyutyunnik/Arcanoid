@@ -1,4 +1,4 @@
-package com.my.example.cosmoarcanoid.fragments
+package com.mstete.wnn.csmt.fragments
 
 import android.annotation.SuppressLint
 import android.content.SharedPreferences
@@ -10,8 +10,8 @@ import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.fragment.findNavController
-import com.my.example.cosmoarcanoid.R
-import com.my.example.cosmoarcanoid.databinding.FragmentCosmoMenuBinding
+import com.mstete.wnn.csmt.R
+import com.mstete.wnn.csmt.databinding.FragmentCosmoMenuBinding
 
 class CosmoMenuFragment : Fragment(R.layout.fragment_cosmo_menu) {
 

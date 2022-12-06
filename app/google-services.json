@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "397098629495",
+    "project_id": "csms-mnn",
+    "storage_bucket": "csms-mnn.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:397098629495:android:d47e1f191f97b93b4e0972",
+        "android_client_info": {
+          "package_name": "com.mstete.wnn.csmt"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "397098629495-pefho1086djuehuuv2ft0dufsvnudefa.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCtwLDSvuvEphzDVhf4jlfE4icAkC8wWTc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "397098629495-pefho1086djuehuuv2ft0dufsvnudefa.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
